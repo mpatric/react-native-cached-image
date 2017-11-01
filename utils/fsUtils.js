@@ -114,8 +114,9 @@ module.exports = {
                                     return Promise.reject();
                                 }
 
-                                // the download is complete and rename the temporary file
-                                return fs.mv(tmpFile, toFile);
+                                // the download is complete and rename the temporary file, deleting the original first if it exists
+                                return this.deleteFile(toFile)
+                                    .then(() => fs.mv(tmpFile, toFile));
                             });
 
 

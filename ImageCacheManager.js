@@ -55,10 +55,8 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
                 const fileRelativePath = path.getImageRelativeFilePath(cacheableUrl);
                 const filePath = `${options.cacheLocation}/${fileRelativePath}`
 
-                // remove expired file if exists
-                return fs.deleteFile(filePath)
-                    // get the image to cache (download / copy / etc)
-                    .then(() => getCachedFile(filePath))
+                // get the image to cache (download / copy / etc)
+                return getCachedFile(filePath)
                     // add to cache
                     .then(() => urlCache.set(cacheableUrl, fileRelativePath, options.ttl))
                     // return filePath
